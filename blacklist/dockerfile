@@ -1,0 +1,15 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Copiar los archivos de Pipenv y luego instalar dependencias
+COPY Pipfile ./
+
+RUN pip install --upgrade pip pipenv && pipenv install --skip-lock
+# Copiar el resto del código de la aplicación
+COPY . .
+
+EXPOSE 3000
+
+# Comando para ejecutar la aplicación
+CMD ["pipenv", "run", "python", "main.py"]
